@@ -26,7 +26,7 @@ func GetTrelloLists(boardID string) (lists []List) {
 	query := url.Values{
 		"key": {key}, 
 		"token": {token},
-		"cards": {"all"},
+		"cards": {"open"},
 		"card_fields": {"idShort"},
 	}
 	boardUrl := url.URL{
