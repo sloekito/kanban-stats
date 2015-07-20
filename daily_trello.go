@@ -76,9 +76,9 @@ func PublishListsToInflux(lists []List){
 	columns := make([]string, len(lists))
 	point := make([]int, len(lists))
 	points := [1][]int{point}
-	for _, list := range lists {
-		columns = append(columns, list.IdBoard + "_count_open_cards")
-		points[0] = append(points[0], len(list.Cards))
+	for i, list := range lists {
+		columns[i] = list.IdBoard + "_count_open_cards"
+		points[0][i] = len(list.Cards)
 	}
 	
 	post.Columns = columns
