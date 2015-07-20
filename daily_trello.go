@@ -10,7 +10,6 @@ import (
 
 type List struct {
 	Id string
-	IdBoard string
 	Name string
 	Cards []interface{}
 }
