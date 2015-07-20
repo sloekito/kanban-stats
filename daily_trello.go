@@ -9,6 +9,7 @@ import (
 )
 
 type List struct {
+	Id string
 	IdBoard string
 	Name string
 	Cards []interface{}
@@ -77,7 +78,7 @@ func PublishListsToInflux(lists []List){
 	point := make([]int, len(lists))
 	points := [1][]int{point}
 	for i, list := range lists {
-		columns[i] = list.IdBoard + "_count_open_cards"
+		columns[i] = list.Id + "_count_open_cards"
 		points[0][i] = len(list.Cards)
 	}
 	
