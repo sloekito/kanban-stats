@@ -12,16 +12,18 @@ import (
 
 func main(){
 	log.Print("---daily_trello: start")
+	
 	client := Client{
 		Key: KEY,
 		Token: TOKEN,
 	}	
 	lists := client.GetTrelloLists("534efa63a3a33edc034ac3d1")
+	for _, list := range lists {
+		fmt.Printf("%s(%s): %d\n", list.Name, list.Id, len(list.Cards))
+	}
+
 	PublishListsToInflux(lists)
 	
-	for _, list := range lists {
-		fmt.Printf("%s: %d\n", list.Name, len(list.Cards))
-	}
 	
 	log.Print("---daily_trello: success")	
 }
