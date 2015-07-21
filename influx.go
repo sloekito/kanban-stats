@@ -16,14 +16,14 @@ const (
 	InfluxPass = "root"
 )
 
-type InfluxPost struct {
+type InfluxPost [1]struct {
 	Name string `json:"name"`
 	Columns []string `json:"columns"`
 	Points [1][]int `json:"points"`
 }
 
 func PublishListsToInflux(seriesName string, lists []List){
-	post := [1]InfluxPost{
+	post := InfluxPost{
 		{Name: seriesName,},
 	}
 	columns := make([]string, len(lists))
