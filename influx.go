@@ -7,9 +7,7 @@ import (
 	"bytes"
 	"log"
 )
-const (
-	TrelloBoardName = "DevProcess"	
-)
+
 
 const (
 	InfluxHost = "192.168.99.100:8086"
@@ -24,9 +22,9 @@ type InfluxPost struct {
 	Points [1][]int `json:"points"`
 }
 
-func PublishListsToInflux(lists []List){
+func PublishListsToInflux(seriesName string, lists []List){
 	post := [1]InfluxPost{
-		{Name: TrelloBoardName,},
+		{Name: seriesName,},
 	}
 	columns := make([]string, len(lists))
 	point := make([]int, len(lists))

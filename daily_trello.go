@@ -19,7 +19,7 @@ func main(){
 		fmt.Printf("%s(%s): %d\n", list.Name, list.Id, len(list.Cards))
 	}
 
-	PublishListsToInflux(lists)
+	PublishListsToInflux("DevProcess", lists)
 	
 	
 	log.Print("---daily_trello: success")	
