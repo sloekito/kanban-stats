@@ -102,7 +102,7 @@ func PublishListsToInflux(lists []List){
 		RawQuery: query.Encode(),
 	}
 		
-	response, err := http.Post(influxURL.String(), "application/x-www-form-urlencoded", bytes.NewReader(body))
+	response, err := http.Post(influxURL.String(), "application/json", bytes.NewReader(body))
 	if err != nil {
 		log.Fatal(err)
 	}
