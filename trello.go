@@ -13,10 +13,15 @@ type List struct {
 	Cards []interface{}
 }
 
-func GetTrelloLists(boardID string) (lists []List) {
+type Client struct {
+	Key string
+	Token string
+}
+
+func (c Client) GetTrelloLists(boardID string) (lists []List) {
 	query := url.Values{
-		"key": {key}, 
-		"token": {token},
+		"key": {c.Key}, 
+		"token": {c.Token},
 		"cards": {"open"},
 		"card_fields": {"idShort"},
 	}
