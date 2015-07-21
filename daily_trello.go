@@ -72,8 +72,8 @@ type InfluxPost struct {
 }
 
 func PublishListsToInflux(lists []List){
-	post := InfluxPost{
-		Name: TrelloBoardName,
+	post := [1]InfluxPost{
+		{Name: TrelloBoardName,},
 	}
 	columns := make([]string, len(lists))
 	point := make([]int, len(lists))
@@ -83,8 +83,8 @@ func PublishListsToInflux(lists []List){
 		points[0][i] = len(list.Cards)
 	}
 	
-	post.Columns = columns
-	post.Points = points
+	post[0].Columns = columns
+	post[0].Points = points
 	
 	body, err := json.Marshal(post)
 	if err != nil {
@@ -101,10 +101,13 @@ func PublishListsToInflux(lists []List){
 		Path: "db/" + InfluxDB + "/series",
 		RawQuery: query.Encode(),
 	}
-	response, err := http.Post(influxURL.String(), "application/json", bytes.NewReader(body))
+		
+	response, err := http.Post(influxURL.String(), "application/x-www-form-urlencoded", bytes.NewReader(body))
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer response.Body.Close()
+	
 	if response.StatusCode != 200 {
 		log.Fatal("InfluxDB response: " + response.Status)
 	}
