@@ -23,9 +23,7 @@ type InfluxPost [1]struct {
 }
 
 func PublishListsToInflux(seriesName string, lists []List){
-	post := InfluxPost{
-		{Name: seriesName,},
-	}
+	post := InfluxPost{{Name: seriesName}}
 	columns := make([]string, len(lists))
 	point := make([]int, len(lists))
 	points := [1][]int{point}
