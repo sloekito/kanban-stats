@@ -27,6 +27,12 @@ func main(){
 		fmt.Printf("%s(%s): %d\n", list.Name, list.Id, len(list.Cards))
 	}
 
+	influx := influx.Client{
+		InfluxHost: "192.168.99.100:8086",
+		InfluxDB: "Trello",
+		InfluxUser: "root",
+		InfluxPass: "root",
+	}
 	influx.PublishListsToInflux(*trelloBoardID, lists)
 	
 	

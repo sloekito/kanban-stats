@@ -10,12 +10,12 @@ import (
 )
 
 
-const (
-	InfluxHost = "192.168.99.100:8086"
-	InfluxDB = "Trello"
-	InfluxUser = "root"
-	InfluxPass = "root"
-)
+type Client struct{
+	InfluxHost string
+	InfluxDB string
+	InfluxUser string
+	InfluxPass string
+}
 
 type InfluxPost [1]struct {
 	Name string `json:"name"`
@@ -23,7 +23,7 @@ type InfluxPost [1]struct {
 	Points [1][]int `json:"points"`
 }
 
-func PublishListsToInflux(seriesName string, lists []trello.List){
+func (c Client )PublishListsToInflux(seriesName string, lists []trello.List){
 	post := InfluxPost{{Name: seriesName}}
 	columns := make([]string, len(lists))
 	point := make([]int, len(lists))
@@ -42,13 +42,13 @@ func PublishListsToInflux(seriesName string, lists []trello.List){
 	}
 	
 	query := url.Values{
-		"u": {InfluxUser}, 
-		"p": {InfluxPass},
+		"u": {c.InfluxUser}, 
+		"p": {c.InfluxPass},
 	}
 	influxURL := url.URL{
 		Scheme: "http",
-		Host: InfluxHost,
-		Path: "db/" + InfluxDB + "/series",
+		Host: c.InfluxHost,
+		Path: "db/" + c.InfluxDB + "/series",
 		RawQuery: query.Encode(),
 	}
 		
