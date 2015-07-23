@@ -15,6 +15,10 @@ func main(){
 	trelloKey := flag.String("trellokey", "", "Trello application key")
 	trelloToken :=flag.String("trellotoken", "", "Trello access token")
 	trelloBoardID := flag.String("boardid", "", "Trello board ID")
+	influxHost := flag.String("influxhost", "", "Influx host:post")
+	influxDB := flag.String("influxdb", "", "Influx datbase name")
+	influxUser := flag.String("influxuser", "", "Influx username")
+	influxPass := flag.String("influxpass", "", "Influx password")
 	flag.Parse()
 	
 	trello := trello.Client{
@@ -28,10 +32,10 @@ func main(){
 	}
 
 	influx := influx.Client{
-		InfluxHost: "192.168.99.100:8086",
-		InfluxDB: "Trello",
-		InfluxUser: "root",
-		InfluxPass: "root",
+		InfluxHost: *influxHost,
+		InfluxDB: *influxDB,
+		InfluxUser: *influxUser,
+		InfluxPass: *influxPass,
 	}
 	influx.PublishListsToInflux(*trelloBoardID, lists)
 	
