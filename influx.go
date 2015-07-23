@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"bytes"
 	"log"
+	"daily_trello/trello"
 )
 
 
@@ -22,7 +23,7 @@ type InfluxPost [1]struct {
 	Points [1][]int `json:"points"`
 }
 
-func PublishListsToInflux(seriesName string, lists []List){
+func PublishListsToInflux(seriesName string, lists []trello.List){
 	post := InfluxPost{{Name: seriesName}}
 	columns := make([]string, len(lists))
 	point := make([]int, len(lists))

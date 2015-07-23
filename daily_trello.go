@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"flag"
+	"daily_trello/trello"
 )
 
 
@@ -15,13 +16,12 @@ func main(){
 	trelloBoardID := flag.String("boardid", "", "Trello board ID")
 	flag.Parse()
 	
-	client := Client{
+	trello := trello.Client{
 		Key: *trelloKey,
 		Token: *trelloToken,
 	}
-	fmt.Println(client)	
-	lists := client.GetTrelloLists(*trelloBoardID)
-	
+	lists := trello.GetLists(*trelloBoardID)
+	fmt.Println(trelloBoardID)
 	for _, list := range lists {
 		fmt.Printf("%s(%s): %d\n", list.Name, list.Id, len(list.Cards))
 	}

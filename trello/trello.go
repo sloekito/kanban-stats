@@ -1,4 +1,4 @@
-package main
+package trello
 
 import (
 	"net/url"
@@ -18,7 +18,7 @@ type Client struct {
 	Token string
 }
 
-func (c Client) GetTrelloLists(boardID string) (lists []List) {
+func (c Client) GetLists(boardID string) (lists []List) {
 	query := url.Values{
 		"key": {c.Key}, 
 		"token": {c.Token},
@@ -31,6 +31,7 @@ func (c Client) GetTrelloLists(boardID string) (lists []List) {
 		Path: "1/board/" + boardID + "/lists",
 		RawQuery: query.Encode(),
 	}
+	
 	response, err := http.Get(boardUrl.String())
 	if err != nil {
 		log.Fatal(err)
