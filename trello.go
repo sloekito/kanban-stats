@@ -36,6 +36,9 @@ func (c Client) GetTrelloLists(boardID string) (lists []List) {
 		log.Fatal(err)
 	}
 	defer response.Body.Close()
+	if response.StatusCode != 200 {
+		log.Fatal("Trello response: " + response.Status)
+	}
 	
 	decoder := json.NewDecoder(response.Body)
 	err = decoder.Decode(&lists)
