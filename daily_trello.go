@@ -5,6 +5,7 @@ import (
 	"log"
 	"flag"
 	"daily_trello/trello"
+	"daily_trello/influx"
 )
 
 
@@ -26,7 +27,7 @@ func main(){
 		fmt.Printf("%s(%s): %d\n", list.Name, list.Id, len(list.Cards))
 	}
 
-	PublishListsToInflux(*trelloBoardID, lists)
+	influx.PublishListsToInflux(*trelloBoardID, lists)
 	
 	
 	log.Print("---daily_trello: success")	

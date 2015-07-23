@@ -1,4 +1,4 @@
-package main
+package influx
 
 import (
 	"net/http"
