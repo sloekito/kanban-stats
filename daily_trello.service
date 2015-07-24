@@ -1,0 +1,13 @@
+[Unit]
+Description=Load latest trello list card counts into influx
+
+[Service]
+Type=oneshot
+
+ExecStart=/usr/bin/docker run \
+	--name daily_trello \
+	--rm=true \
+	docker.cloud.nlab.io/daily_trello:latest  -trellokey a1f4e474236496b38a7ad8fda0d1a47e -trellotoken e59bb28c9ce2fcc9c2be5eef1eba6f6b2953c4616c8268b551d518c855fc6191 -boardid 534efa63a3a33edc034ac3d1 -influxhost influxdb:8086 -influxuser root -influxpass root -influxdb Trello	
+	
+[Install]
+WantedBy=multi-user.target

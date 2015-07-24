@@ -1,0 +1,9 @@
+[Unit]
+Description=Runs daily trello once per day
+
+[Timer]
+OnCalendar=daily
+Unit=daily_trello.service
+
+[Install]
+WantedBy=multi-user.target
