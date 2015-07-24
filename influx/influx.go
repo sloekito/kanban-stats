@@ -7,6 +7,7 @@ import (
 	"bytes"
 	"log"
 	"daily_trello/trello"
+	"io/ioutil"
 )
 
 
@@ -59,6 +60,7 @@ func (c Client )PublishListsToInflux(seriesName string, lists []trello.List){
 	defer response.Body.Close()
 	
 	if response.StatusCode != 200 {
-		log.Fatal("InfluxDB response: " + response.Status)
+		body, _ := ioutil.ReadAll(response.Body)
+		log.Fatalf("InfluxDB response: %v\n%v", response.Status, string(body))
 	}
 }
