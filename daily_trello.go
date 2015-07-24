@@ -33,7 +33,7 @@ func main(){
 			fmt.Printf("%s(%s): %d\n", list.Name, list.Id, len(list.Cards))
 		}
 	} else {
-		influx := influx.Client{
+		influx := influx.Database{
 			InfluxHost: *influxHost,
 			InfluxDB: *influxDB,
 			InfluxUser: *influxUser,

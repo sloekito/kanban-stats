@@ -11,7 +11,7 @@ import (
 )
 
 
-type Client struct{
+type Database struct{
 	InfluxHost string
 	InfluxDB string
 	InfluxUser string
@@ -24,7 +24,7 @@ type InfluxPost [1]struct {
 	Points [1][]int `json:"points"`
 }
 
-func (c Client )PublishListsToInflux(seriesName string, lists []trello.List){
+func (c Database)PublishListsToInflux(seriesName string, lists []trello.List){
 	post := InfluxPost{{Name: seriesName}}
 	columns := make([]string, len(lists))
 	point := make([]int, len(lists))
