@@ -10,7 +10,7 @@ import (
 
 
 func main(){
-	log.Print("---daily_trello: start")
+	log.Print("daily_trello: start")
 	
 	trelloKey := flag.String("trellokey", "", "Trello application key")
 	trelloToken :=flag.String("trellotoken", "", "Trello access token")
@@ -42,5 +42,5 @@ func main(){
 		influx.PublishListsToInflux(*trelloBoardID, lists)
 	}	
 	
-	log.Print("---daily_trello: success")	
+	log.Print("daily_trello: success")	
 }
