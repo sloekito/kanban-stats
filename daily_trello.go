@@ -57,21 +57,7 @@ func main() {
 		log.Fatal(err)
 	}
 	
-	databases, err := influxdbClient.GetDatabaseList()
-	databaseFound := false
-	for _,db := range databases {
-		if db["name"] == *config.influxDB {
-			databaseFound = true
-			break
-		}
-	}
-	
-	if !databaseFound {
-		err = influxdbClient.CreateDatabase(*config.influxDB)
-		if err != nil {
-			log.Fatal(err)
-		}
-	}
+	initDatabase(influxdbClient, *config.influxDB)
 	
 	point := make([]interface{}, len(lists))
 	series := influxdb.Series{	
@@ -88,5 +74,22 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
 
+func initDatabase(client *influxdb.Client, name string) {
+	databases, err := client.GetDatabaseList()
+	databaseFound := false
+	for _,db := range databases {
+		if db["name"] == name {
+			databaseFound = true
+			break
+		}
+	}
+	
+	if !databaseFound {
+		err = client.CreateDatabase(name)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
 }
