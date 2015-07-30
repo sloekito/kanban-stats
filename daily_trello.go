@@ -58,22 +58,8 @@ func main() {
 	}
 	
 	initDatabase(influxdbClient, *config.influxDB)
-	
-	point := make([]interface{}, len(lists))
-	series := influxdb.Series{	
-		Name: *config.trelloBoardID,
-		Columns: make([]string, len(lists)),
-		Points: [][]interface{}{point},
-	}
-	for i, list := range lists {
-		series.Columns[i] = list.Id + "_count_open_cards"
-		point[i] = len(list.Cards)
-	}
-	
-	err = influxdbClient.WriteSeries([]*influxdb.Series{&series})
-	if err != nil {
-		log.Fatal(err)
-	}
+	writeListsToDatabase(influxdbClient, lists, *config.trelloBoardID)
+
 }
 
 func initDatabase(client *influxdb.Client, name string) {
@@ -91,5 +77,23 @@ func initDatabase(client *influxdb.Client, name string) {
 		if err != nil {
 			log.Fatal(err)
 		}
+	}
+}
+
+func writeListsToDatabase(client *influxdb.Client, lists []trello.List, seriesName string){
+	point := make([]interface{}, len(lists))
+	series := influxdb.Series{	
+		Name: seriesName,
+		Columns: make([]string, len(lists)),
+		Points: [][]interface{}{point},
+	}
+	for i, list := range lists {
+		series.Columns[i] = list.Id + "_count_open_cards"
+		point[i] = len(list.Cards)
+	}
+	
+	err := client.WriteSeries([]*influxdb.Series{&series})
+	if err != nil {
+		log.Fatal(err)
 	}
 }
