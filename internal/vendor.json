@@ -1,0 +1,12 @@
+{
+	"comment": "",
+	"package": [
+		{
+			"canonical": "github.com/influxdb/influxdb/client",
+			"comment": "",
+			"local": "daily_trello/internal/github.com/influxdb/influxdb/client",
+			"revision": "afde71eb1740fd763ab9450e1f700ba0e53c36d0",
+			"revisionTime": "2014-12-28T14:15:54-05:00"
+		}
+	]
+}
