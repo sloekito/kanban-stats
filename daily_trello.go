@@ -41,6 +41,7 @@ func main() {
 	lists := trello.GetLists(*config.trelloBoardID)
 
 	if *config.printOnly == true {
+		fmt.Printf("Board ID: %v\n", *config.trelloBoardID)
 		for _, list := range lists {
 			fmt.Printf("%s(%s): %d\n", list.Name, list.Id, len(list.Cards))
 		}
