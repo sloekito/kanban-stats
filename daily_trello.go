@@ -30,6 +30,7 @@ func parseArgs() (_args args) {
 
 func main() {
 	log.Print("daily_trello: start")
+	defer log.Print("daily_trello: end")
 	
 	config := parseArgs()
 
@@ -43,51 +44,49 @@ func main() {
 		for _, list := range lists {
 			fmt.Printf("%s(%s): %d\n", list.Name, list.Id, len(list.Cards))
 		}
-		
-	} else {
-		influxdbClient, err := influxdb.NewClient(&influxdb.ClientConfig{
-			Host: *config.influxHost,
-			Username: *config.influxUser,
-			Password: *config.influxPassword,
-			Database: *config.influxDB,
-		})
+		return
+	}
+	
+	influxdbClient, err := influxdb.NewClient(&influxdb.ClientConfig{
+		Host: *config.influxHost,
+		Username: *config.influxUser,
+		Password: *config.influxPassword,
+		Database: *config.influxDB,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	
+	databases, err := influxdbClient.GetDatabaseList()
+	databaseFound := false
+	for _,db := range databases {
+		if db["name"] == *config.influxDB {
+			databaseFound = true
+			break
+		}
+	}
+	
+	if !databaseFound {
+		err = influxdbClient.CreateDatabase(*config.influxDB)
 		if err != nil {
 			log.Fatal(err)
 		}
-		
-		databases, err := influxdbClient.GetDatabaseList()
-		databaseFound := false
-		for _,db := range databases {
-			if db["name"] == *config.influxDB {
-				databaseFound = true
-				break
-			}
-		}
-		
-		if !databaseFound {
-			err = influxdbClient.CreateDatabase(*config.influxDB)
-			if err != nil {
-				log.Fatal(err)
-			}
-		}
-		
-		point := make([]interface{}, len(lists))
-		series := influxdb.Series{	
-			Name: *config.trelloBoardID,
-			Columns: make([]string, len(lists)),
-			Points: [][]interface{}{point},
-		}
-		for i, list := range lists {
-			series.Columns[i] = list.Id + "_count_open_cards"
-			point[i] = len(list.Cards)
-		}
-		
-		err = influxdbClient.WriteSeries([]*influxdb.Series{&series})
-		if err != nil {
-			log.Fatal(err)
-		}
-
+	}
+	
+	point := make([]interface{}, len(lists))
+	series := influxdb.Series{	
+		Name: *config.trelloBoardID,
+		Columns: make([]string, len(lists)),
+		Points: [][]interface{}{point},
+	}
+	for i, list := range lists {
+		series.Columns[i] = list.Id + "_count_open_cards"
+		point[i] = len(list.Cards)
+	}
+	
+	err = influxdbClient.WriteSeries([]*influxdb.Series{&series})
+	if err != nil {
+		log.Fatal(err)
 	}
 
-	log.Print("daily_trello: success")
 }
