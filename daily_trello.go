@@ -74,6 +74,7 @@ func initDatabase(client *influxdb.Client, name string) {
 	}
 	
 	if !databaseFound {
+		log.Print("daily_trello: creating database ", name)
 		err = client.CreateDatabase(name)
 		if err != nil {
 			log.Fatal(err)
