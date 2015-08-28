@@ -1,0 +1,1 @@
+curl -X DELETE 'http://172.31.27.54:8086/db/Trello?u=root&p=root'
