@@ -1,5 +1,5 @@
 [Unit]
-Description=Load latest trello list card counts into influx
+Description=Trello stats collector
 
 [Service]
 Type=oneshot
