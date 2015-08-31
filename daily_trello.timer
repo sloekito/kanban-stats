@@ -1,5 +1,5 @@
 [Unit]
-Description=Runs daily trello once per day
+Description=Runs trello collector once a day
 
 [Timer]
 OnCalendar=daily
