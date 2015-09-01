@@ -1,9 +1,13 @@
+[X-Fleet]
+MachineOf=daily_trello.service
+
 [Unit]
 Description=Runs trello collector once a day
 
 [Timer]
 OnCalendar=daily
 Unit=daily_trello.service
+Persistent=true
 
 [Install]
 WantedBy=multi-user.target
