@@ -1,0 +1,10 @@
+{ 
+	"name":"Trello", 
+	"type":"influxdb_08", 
+	"url":"http://influxdb:8086", 
+	"access":"proxy", 
+	"basicAuth":false, 
+	"password":"root",
+	"user":"root",
+	"database":"Trello" 
+}
