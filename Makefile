@@ -1,6 +1,6 @@
 name=daily_trello
 account=docker.cloud.nlab.io
-release=0.0.5
+release=0.0.8
 target_os=linux
 target_arch=amd64
 
