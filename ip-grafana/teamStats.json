@@ -1,5 +1,7 @@
 {
-  "id": 3,
+	"dashboard": {
+	
+  "id": null,
   "title": "Team Stats",
   "originalTitle": "Team Stats",
   "tags": [],
@@ -16,7 +18,7 @@
       "panels": [
         {
           "aliasColors": {},
-          "bars": false,
+          "bars": true,
           "datasource": "Trello",
           "editable": true,
           "error": false,
@@ -24,37 +26,38 @@
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
-            "leftMin": null,
+            "leftMin": 80,
             "rightLogBase": 1,
             "rightMax": null,
             "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "thresholdLine": false
           },
           "id": 1,
           "interval": "1d",
           "legend": {
-            "alignAsTable": false,
-            "avg": true,
-            "current": true,
+            "alignAsTable": true,
+            "avg": false,
+            "current": false,
             "hideEmpty": false,
-            "max": true,
-            "min": true,
-            "rightSide": false,
+            "max": false,
+            "min": false,
+            "rightSide": true,
             "show": true,
-            "total": true,
-            "values": true
+            "total": false,
+            "values": false
           },
-          "lines": true,
+          "lines": false,
           "linewidth": 2,
           "links": [],
-          "nullPointMode": "connected",
+          "nullPointMode": "null as zero",
           "percentage": false,
           "pointradius": 5,
           "points": false,
-          "renderer": "png",
+          "renderer": "flot",
           "seriesOverrides": [],
           "span": 12,
           "stack": true,
@@ -63,49 +66,53 @@
             {
               "alias": "Waste",
               "column": "53d0c20893ffc1d7c3848d89_count_open_cards",
+              "fill": "null",
               "function": "mean",
               "groupby_field": "",
-              "hide": false,
+              "hide": true,
               "interval": "",
-              "query": "select mean(53d0c20893ffc1d7c3848d89_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(53d0c20893ffc1d7c3848d89_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) fill(null) order asc",
               "series": "534efa63a3a33edc034ac3d1"
             },
             {
               "alias": "Done",
               "column": "534efa63a3a33edc034ac3d4_count_open_cards",
+              "fill": "null",
               "function": "mean",
               "groupby_field": "",
               "interval": "",
-              "query": "select mean(534efa63a3a33edc034ac3d4_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(534efa63a3a33edc034ac3d4_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) fill(null) order asc",
               "series": "534efa63a3a33edc034ac3d1"
             },
             {
               "alias": "Validate",
               "column": "55ef50c10c7798b2a6281e3a_count_open_cards",
-              "fill": "0",
+              "fill": "null",
               "function": "mean",
               "groupby_field": "",
               "hide": false,
               "interval": "",
-              "query": "select mean(55ef50c10c7798b2a6281e3a_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) fill(0) order asc",
+              "query": "select mean(55ef50c10c7798b2a6281e3a_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) fill(null) order asc",
               "series": "534efa63a3a33edc034ac3d1"
             },
             {
               "alias": "In Progress",
               "column": "534efa63a3a33edc034ac3d3_count_open_cards",
+              "fill": "null",
               "function": "mean",
               "groupby_field": "",
               "interval": "",
-              "query": "select mean(534efa63a3a33edc034ac3d3_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(534efa63a3a33edc034ac3d3_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) fill(null) order asc",
               "series": "534efa63a3a33edc034ac3d1"
             },
             {
               "alias": "On Deck",
               "column": "5571e02c7371da4596eefdf1_count_open_cards",
+              "fill": "null",
               "function": "mean",
               "groupby_field": "",
               "interval": "",
-              "query": "select mean(5571e02c7371da4596eefdf1_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(5571e02c7371da4596eefdf1_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) fill(null) order asc",
               "series": "534efa63a3a33edc034ac3d1"
             }
           ],
@@ -126,7 +133,7 @@
         },
         {
           "aliasColors": {},
-          "bars": false,
+          "bars": true,
           "datasource": "Trello",
           "editable": true,
           "error": false,
@@ -146,21 +153,21 @@
           "id": 2,
           "interval": "1d",
           "legend": {
-            "alignAsTable": false,
-            "avg": true,
-            "current": true,
+            "alignAsTable": true,
+            "avg": false,
+            "current": false,
             "hideEmpty": false,
-            "max": true,
-            "min": true,
-            "rightSide": false,
+            "max": false,
+            "min": false,
+            "rightSide": true,
             "show": true,
-            "total": true,
-            "values": true
+            "total": false,
+            "values": false
           },
-          "lines": true,
+          "lines": false,
           "linewidth": 2,
           "links": [],
-          "nullPointMode": "connected",
+          "nullPointMode": "null as zero",
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -171,39 +178,53 @@
           "steppedLine": false,
           "targets": [
             {
+              "alias": "Defects Done",
+              "column": "55fb7801687ea8c97b3c8e82_count_open_cards",
+              "fill": "null",
+              "function": "mean",
+              "interval": "",
+              "query": "select mean(55fb7801687ea8c97b3c8e82_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) fill(null) order asc",
+              "series": "534efa63a3a33edc034ac3d1",
+              "target": ""
+            },
+            {
               "alias": "Done",
               "column": "559c06b0fe1686068b6fad16_count_open_cards",
+              "fill": "null",
               "function": "mean",
               "groupby_field": "",
               "interval": "",
-              "query": "select mean(559c06b0fe1686068b6fad16_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(559c06b0fe1686068b6fad16_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) fill(null) order asc",
               "series": "534efa63a3a33edc034ac3d1"
             },
             {
-              "alias": "Ready For Test",
+              "alias": "Validate & Deploy",
               "column": "55915d3111adda33b1fb48ff_count_open_cards",
+              "fill": "null",
               "function": "mean",
               "groupby_field": "",
               "interval": "",
-              "query": "select mean(55915d3111adda33b1fb48ff_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(55915d3111adda33b1fb48ff_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) fill(null) order asc",
               "series": "534efa63a3a33edc034ac3d1"
             },
             {
               "alias": "Doing",
               "column": "55427b8cca6679bf721155c2_count_open_cards",
+              "fill": "null",
               "function": "mean",
               "groupby_field": "",
               "interval": "",
-              "query": "select mean(55427b8cca6679bf721155c2_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(55427b8cca6679bf721155c2_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) fill(null) order asc",
               "series": "534efa63a3a33edc034ac3d1"
             },
             {
               "alias": "Backlog",
               "column": "54ff2239bafebc6bf25cfbd5_count_open_cards",
+              "fill": "null",
               "function": "mean",
               "groupby_field": "",
               "interval": "",
-              "query": "select mean(54ff2239bafebc6bf25cfbd5_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) order asc",
+              "query": "select mean(54ff2239bafebc6bf25cfbd5_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) fill(null) order asc",
               "series": "534efa63a3a33edc034ac3d1"
             }
           ],
@@ -233,6 +254,7 @@
       "enable": true,
       "notice": false,
       "now": true,
+      "nowDelay": "",
       "refresh_intervals": [
         "5s",
         "10s",
@@ -255,13 +277,16 @@
         "24h",
         "2d",
         "7d",
-        "30d"
+        "30d",
+        "60d",
+        "90d",
+        "150d"
       ],
       "type": "timepicker"
     }
   ],
   "time": {
-    "from": "now-30d",
+    "from": "now-150d",
     "to": "now"
   },
   "templating": {
@@ -272,6 +297,8 @@
   },
   "refresh": "2h",
   "schemaVersion": 6,
-  "version": 18,
+  "version": 6,
   "links": []
+}
+}
 }

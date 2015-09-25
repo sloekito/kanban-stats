@@ -1,1 +1,1 @@
-curl -X POST 'http://172.31.27.54:8086/db?u=root&p=root' -d '{"name": "Trello"}'
+curl -X POST 'http://172.31.6.139:8086/db?u=root&p=root' -d '{"name": "Trello"}'
