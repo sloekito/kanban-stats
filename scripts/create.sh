@@ -1,1 +1,0 @@
-curl -X POST 'http://172.31.6.139:8086/db?u=root&p=root' -d '{"name": "Trello"}'

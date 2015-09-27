@@ -1,0 +1,23 @@
+[Unit]
+Description=Database Creation for Trello stats
+Requires=influxdb09@1.service
+After=influxdb09@1.service
+
+[Service]
+Type=oneshot
+Environment="REGISTRY=docker.cloud.nlab.io"
+Environment="IMAGE=daily_trello"
+Environment="RELEASE=0.0.9"
+
+ExecStartPre=/usr/bin/printf "Pulling docker image ${REGISTRY}/${IMAGE}:${RELEASE}"
+ExecStartPre=/usr/bin/flock /home/core/pull.lock /usr/bin/timeout 5m /usr/bin/docker pull ${REGISTRY}/${IMAGE}:${RELEASE}
+ExecStart=/usr/bin/printf "Creating InfluxDB database for Trello stats"
+ExecStart=/usr/bin/docker run --rm=true --entrypoint="/bin/sh" -e PATH=/opt/influxdb:$PATH \
+  ${REGISTRY}/${IMAGE}:${RELEASE} /bin/createdb.sh
+
+[X-Fleet]
+MachineMetadata="role=control"
+MachineOf=influxdb09@1.service
+
+[Install]
+WantedBy=multi-user.target
