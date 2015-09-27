@@ -10,7 +10,7 @@ import (
 
 type args struct {
 	trelloKey, trelloToken, trelloBoardID, influxHost, influxDB, influxUser, influxPassword *string
-	printOnly *bool
+	verbose, dryRun *bool
 }
 
 func parseArgs() (_args args) {
@@ -22,7 +22,8 @@ func parseArgs() (_args args) {
 		influxDB: flag.String("influxdb", "", "Influx datbase name"),
 		influxUser: flag.String("influxuser", "", "Influx username"),
 		influxPassword: flag.String("influxpass", "", "Influx password"),
-		printOnly: flag.Bool("print-only", false, "Print information rather than publish to Influx"),
+		verbose: flag.Bool("v", false, "Print verbose information"),
+		dryRun: flag.Bool("d", false, "Dry run does not output to database"),
 	}
 	flag.Parse()
 	return
@@ -40,26 +41,26 @@ func main() {
 	}
 	lists := trello.GetLists(*config.trelloBoardID)
 
-	if *config.printOnly == true {
+	if *config.verbose == true {
 		fmt.Printf("Board ID: %v\n", *config.trelloBoardID)
 		for _, list := range lists {
 			fmt.Printf("%s(%s): %d\n", list.Name, list.Id, len(list.Cards))
 		}
-		return
 	}
 	
-	influxdbClient, err := influxdb.NewClient(&influxdb.ClientConfig{
-		Host: *config.influxHost,
-		Username: *config.influxUser,
-		Password: *config.influxPassword,
-		Database: *config.influxDB,
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
+	if !*config.dryRun {
+		influxdbClient, err := influxdb.NewClient(&influxdb.ClientConfig{
+			Host: *config.influxHost,
+			Username: *config.influxUser,
+			Password: *config.influxPassword,
+			Database: *config.influxDB,
+		})
+		if err != nil {
+			log.Fatal(err)
+		}
 	
-	writeListsToDatabase(influxdbClient, lists, *config.trelloBoardID)
-
+		writeListsToDatabase(influxdbClient, lists, *config.trelloBoardID)
+	}
 }
 
 func writeListsToDatabase(client *influxdb.Client, lists []trello.List, seriesName string){
