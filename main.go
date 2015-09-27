@@ -33,13 +33,14 @@ func main() {
 	
 	flags := getCommandLineFlags()
 
-	trello := trello.Client{
+	trello := trello.NetworkClient{
 		Key:   flags.trelloKey,
 		Token: flags.trelloToken,
 	}
-	lists := trello.GetLists(flags.trelloBoardID)
+	
+	board := GetBoardFromTrello(trello, flags.trelloBoardID)
 
-	if flags.verbose { printInfo(flags.trelloBoardID, lists) }	
+	if flags.verbose { printInfo(board) }	
 	if !flags.dryRun {
 		influxdbClient, err := influxdb.NewClient(&influxdb.ClientConfig{
 			Host: flags.influxHost,
@@ -51,13 +52,13 @@ func main() {
 			log.Fatal(err)
 		}
 	
-		writeListsToDatabase(influxdbClient, lists, flags.trelloBoardID)
+		writeListsToDatabase(influxdbClient, board.Columns, flags.trelloBoardID)
 	}
 }
 
-func printInfo(boardID string, lists []trello.List) {
-	fmt.Printf("Board ID: %v\n", boardID)
-	for _, list := range lists {
+func printInfo(board Board) {
+	fmt.Printf("Board ID: %v\n", board.Id)
+	for _, list := range board.Columns {
 		fmt.Printf("%s(%s): %d\n", list.Name, list.Id, len(list.Cards))
 	}
 }

@@ -13,12 +13,16 @@ type List struct {
 	Cards []interface{}
 }
 
-type Client struct {
+type Client interface {
+	GetLists(boardID string) (lists []List)
+}
+
+type NetworkClient struct {
 	Key string
 	Token string
 }
 
-func (c Client) GetLists(boardID string) (lists []List) {
+func (c NetworkClient) GetLists(boardID string) (lists []List) {
 	query := url.Values{
 		"key": {c.Key}, 
 		"token": {c.Token},

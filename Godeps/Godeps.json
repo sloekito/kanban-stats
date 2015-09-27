@@ -1,0 +1,34 @@
+{
+	"ImportPath": "kanban-stats",
+	"GoVersion": "go1.5.1",
+	"Deps": [
+		{
+			"ImportPath": "github.com/jtolds/gls",
+			"Rev": "9a4a02dbe491bef4bab3c24fd9f3087d6c4c6690"
+		},
+		{
+			"ImportPath": "github.com/smartystreets/assertions",
+			"Comment": "1.5.0-400-ge20084b",
+			"Rev": "e20084b55acef0ee9b0aa38cad708f830b9537ad"
+		},
+		{
+			"ImportPath": "github.com/smartystreets/goconvey/convey",
+			"Comment": "1.5.0-437-ga29728e",
+			"Rev": "a29728e4d70bb23e436d03bee49b1793e70a9352"
+		},
+		{
+			"ImportPath": "github.com/stretchr/objx",
+			"Rev": "cbeaeb16a013161a98496fad62933b1d21786672"
+		},
+		{
+			"ImportPath": "github.com/stretchr/testify/assert",
+			"Comment": "v1.0-17-g089c718",
+			"Rev": "089c7181b8c728499929ff09b62d3fdd8df8adff"
+		},
+		{
+			"ImportPath": "github.com/stretchr/testify/mock",
+			"Comment": "v1.0-17-g089c718",
+			"Rev": "089c7181b8c728499929ff09b62d3fdd8df8adff"
+		}
+	]
+}
