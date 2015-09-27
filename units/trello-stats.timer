@@ -1,8 +1,8 @@
 [X-Fleet]
-MachineOf=daily_trello.service
+MachineOf=trello-stats.service
 
 [Unit]
-Description=Runs trello collector once a day
+Description=Runs trello-stats collector service
 
 [Timer]
 OnCalendar=daily
