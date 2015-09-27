@@ -1,13 +1,13 @@
 [Unit]
-Description=Database Creation for Trello stats
+Description=Database creation for kanban stats
 Requires=influxdb09@1.service
 After=influxdb09@1.service
 
 [Service]
 Type=oneshot
 Environment="REGISTRY=docker.cloud.nlab.io"
-Environment="IMAGE=daily_trello"
-Environment="RELEASE=0.0.9"
+Environment="IMAGE=kanban-stats"
+Environment="RELEASE=0.1"
 
 ExecStartPre=/usr/bin/printf "Pulling docker image ${REGISTRY}/${IMAGE}:${RELEASE}"
 ExecStartPre=/usr/bin/flock /home/core/pull.lock /usr/bin/timeout 5m /usr/bin/docker pull ${REGISTRY}/${IMAGE}:${RELEASE}

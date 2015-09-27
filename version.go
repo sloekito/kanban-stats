@@ -1,3 +1,3 @@
 package main
 
-const ApplicationName string = "trello-stats"
+const ApplicationName string = "kanban-stats"

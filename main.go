@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 	"flag"
-	"trello-stats/trello"
-	influxdb "trello-stats/internal/github.com/influxdb/influxdb/client"
+	"kanban-stats/trello"
+	influxdb "kanban-stats/internal/github.com/influxdb/influxdb/client"
 )
 
 type flags struct {

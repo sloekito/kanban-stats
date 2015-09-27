@@ -1,0 +1,13 @@
+[X-Fleet]
+MachineOf=kanban-stats.service
+
+[Unit]
+Description=Runs kanban-stats collector service
+
+[Timer]
+OnCalendar=daily
+Unit=kanban-stats.service
+Persistent=true
+
+[Install]
+WantedBy=multi-user.target

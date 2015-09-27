@@ -1,4 +1,4 @@
-name=daily_trello
+name=kanban-stats
 account=docker.cloud.nlab.io
 release=0.0.9
 target_os=linux

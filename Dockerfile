@@ -1,7 +1,7 @@
 FROM nordstrom/awscli:1.8.1
 MAINTAINER Innovation Platform Team "invcldtm@nordstrom.com"
 
-ADD build/daily_trello /bin/
+ADD build/kanban-stats /bin/
 ADD scripts/createdb.sh /bin/
 ADD scripts/influxdb-backup.sh /bin/
 
@@ -16,4 +16,4 @@ RUN apt-get update -qy \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
  
-ENTRYPOINT ["bin/daily_trello"]
+ENTRYPOINT ["bin/kanban-stats"]
