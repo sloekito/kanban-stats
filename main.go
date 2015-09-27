@@ -29,8 +29,8 @@ func parseArgs() (_args args) {
 }
 
 func main() {
-	log.Print("daily_trello: start")
-	defer log.Print("daily_trello: end")
+	log.Print(ApplicationName, ": start")
+	defer log.Print(ApplicationName, ": end")
 	
 	config := parseArgs()
 
@@ -58,28 +58,8 @@ func main() {
 		log.Fatal(err)
 	}
 	
-	initDatabase(influxdbClient, *config.influxDB)
 	writeListsToDatabase(influxdbClient, lists, *config.trelloBoardID)
 
-}
-
-func initDatabase(client *influxdb.Client, name string) {
-	databases, err := client.GetDatabaseList()
-	databaseFound := false
-	for _,db := range databases {
-		if db["name"] == name {
-			databaseFound = true
-			break
-		}
-	}
-	
-	if !databaseFound {
-		log.Print("daily_trello: creating database ", name)
-		err = client.CreateDatabase(name)
-		if err != nil {
-			log.Fatal(err)
-		}
-	}
 }
 
 func writeListsToDatabase(client *influxdb.Client, lists []trello.List, seriesName string){
