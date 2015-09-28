@@ -67,8 +67,8 @@ func main() {
 }
 
 func printInfo(board Board) {
-	fmt.Printf("Board ID: %v\n", board.Id)
-	for _, list := range board.Columns {
+	fmt.Printf("Board ID: %v\n", board.GetID())
+	for _, list := range board.GetColumns() {
 		fmt.Printf("%s(%s): %d\n", list.Name, list.Id, len(list.Cards))
 	}
 }

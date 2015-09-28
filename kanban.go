@@ -5,17 +5,31 @@ import (
 )
 
 func GetBoardFromTrello(client trello.Client, boardID string) (board Board){
-	return Board {
-		Id: boardID,
-		Columns: TrelloListsToKanbanColumns(client.GetLists(boardID)),
+	return trelloBoard {
+		id: boardID,
+		columns: TrelloListsToKanbanColumns(client.GetLists(boardID)),
 		client: client,
 	}
 }
 
-type Board struct {
-	Id string
-	Columns []Column
+type Board interface {
+	GetID() string
+	GetColumns() []Column
+}
+
+
+type trelloBoard struct {
+	id string
+	columns []Column
 	client trello.Client
+}
+
+func (board trelloBoard) GetColumns() []Column {
+	return board.columns
+}
+
+func (board trelloBoard) GetID() string {
+	return board.id
 }
 
 func TrelloListsToKanbanColumns(lists []trello.List) (columns []Column){
@@ -28,6 +42,6 @@ func TrelloListsToKanbanColumns(lists []trello.List) (columns []Column){
 
 type Column trello.List
 
-func CountCardsByType(column Column, cardType string) int{
+func (column Column) CountCardsByType(cardType string) int{
 	return 0
 }

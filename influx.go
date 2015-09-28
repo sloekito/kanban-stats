@@ -7,23 +7,23 @@ import (
 )
 
 func writeStatsToDatabase(c *influxdb.Client, board Board) error {
-	points := make([]influxdb.Point, len(board.Columns)*4)
-	teams := []string{"tagsys", "rfid_nordstrom"}
+	points := make([]influxdb.Point, len(board.GetColumns())*2)
+	teams := []string{"rfid_nordstrom"}
 	cardTypes := []string{"feature", "defect"}
 	i := 0 
-	for _, column := range board.Columns {
+	for _, column := range board.GetColumns() {
 		for _, team := range teams{
 			for _, cardType := range cardTypes{
 				points[i] = influxdb.Point{
 					Measurement: "count_cards",
 					Tags: map[string]string {
-						"board": board.Id,
+						"board": board.GetID(),
 						"list": column.Id,
 						"team": team,
 						"type": cardType,
 					},
 					Fields: map[string]interface{}{
-						"value": 0,
+						"value": column.CountCardsByType(cardType),
 					},
 				}
 			}
@@ -31,6 +31,9 @@ func writeStatsToDatabase(c *influxdb.Client, board Board) error {
 	}
 	return nil
 }
+// Tagsys Label: 54641fc074d650d56757a692
+// Defect Label: 54641fc074d650d56757a68e
+
 
 /*
 func writeListsToDatabase(client *influxdb.Client, lists []trello.List, seriesName string){
