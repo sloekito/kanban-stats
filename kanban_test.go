@@ -51,3 +51,42 @@ func Test_TrelloBoard_CountCardsByType(t *testing.T){
 		})
 	})
 }
+
+func Test_TrelloBoard_GetMeasurementPoints(t *testing.T){
+	Convey("Given a board full of cards", t, func(){
+		defectLabel := trello.Label{ ID: "54641fc074d650d56757a68e" }
+		otherLabel := trello.Label{ ID: "1234567890" }
+		cards1 := []trello.Card{
+			{Labels: []trello.Label{defectLabel, otherLabel}},
+			{Labels: []trello.Label{defectLabel}},
+			{Labels: []trello.Label{otherLabel}},
+			{Labels: []trello.Label{}},
+			{Labels: []trello.Label{}},
+		}
+		cards2 := []trello.Card{
+			{Labels: []trello.Label{otherLabel}},
+		}
+		list1 := List{ID: "list1", Cards: cards1}
+		list2 := List{ID: "list2", Cards: cards2}
+		board := trelloBoard{id: "board1", lists: []List{list1, list2}}
+		
+		Convey("It returns a structure that influxdb can use", func(){
+			result := board.GetMeasurementPoints()
+			
+			So(len(result), ShouldEqual, 4)
+			So(result[0].Measurement, ShouldEqual, "count_cards")
+			So(result[0].Tags["board"], ShouldEqual, "board1")
+			So(result[0].Tags["list"], ShouldEqual, "list1")
+			So(result[0].Tags["type"], ShouldEqual, "feature")
+			So(result[0].Fields["value"], ShouldEqual, 3)
+			So(result[1].Tags["type"], ShouldEqual, "defect")
+			So(result[1].Tags["list"], ShouldEqual, "list1")
+			So(result[1].Fields["value"], ShouldEqual, 2)
+			So(result[2].Tags["type"], ShouldEqual, "feature")
+			So(result[2].Tags["list"], ShouldEqual, "list2")
+			So(result[2].Fields["value"], ShouldEqual, 1)
+			So(result[3].Fields["value"], ShouldEqual, 0)
+			
+		})
+	})
+}
