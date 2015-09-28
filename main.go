@@ -67,8 +67,19 @@ func main() {
 }
 
 func printInfo(board Board) {
-	fmt.Printf("Board ID: %v\n", board.GetID())
+	fmt.Printf("Board ID: %v\n\nLists\n", board.GetID())
+	labelsFound := make(map[string]string, 1000)
 	for _, column := range board.GetColumns() {
 		fmt.Printf("%s(%s): %d\n", column.GetName(), column.GetID(), len(column.GetCards()))
+		for _, card := range column.GetCards() {
+			for _, label := range card.Labels {
+				labelsFound[label.Name] = label.ID
+			}
+		}
+	}
+	
+	fmt.Printf("\nLabels In Use\n")
+	for name, id := range labelsFound {
+		fmt.Printf("%s: %s\n", name, id)
 	}
 }
