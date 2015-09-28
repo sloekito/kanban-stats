@@ -22,15 +22,9 @@ func TestGetBoardFromTrello(t *testing.T){
 			
 			Convey("The returned board is populated", func(){
 				So(board.Id, ShouldEqual, boardId)
-				So(reflect.DeepEqual(board.Columns, lists), ShouldBeTrue)
+				So(reflect.DeepEqual(board.Columns, TrelloListsToKanbanColumns(lists)), ShouldBeTrue)
 				So(board.client, ShouldEqual, client)
 			})
 		})
-	})
-}
-
-func (column Column) TestCountCardsUsingFilter(t *testing.T){
-	Convey("Given a column with cards", t, func(){
-		Convey("When filtering by ")
 	})
 }
