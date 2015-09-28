@@ -3,6 +3,21 @@
 	"GoVersion": "go1.5.1",
 	"Deps": [
 		{
+			"ImportPath": "github.com/influxdb/influxdb/client",
+			"Comment": "v0.9.4-rc1-183-gb079d20",
+			"Rev": "b079d201a026d2757b51579dd2a29d8decaf22ef"
+		},
+		{
+			"ImportPath": "github.com/influxdb/influxdb/models",
+			"Comment": "v0.9.4-rc1-183-gb079d20",
+			"Rev": "b079d201a026d2757b51579dd2a29d8decaf22ef"
+		},
+		{
+			"ImportPath": "github.com/influxdb/influxdb/pkg/escape",
+			"Comment": "v0.9.4-rc1-183-gb079d20",
+			"Rev": "b079d201a026d2757b51579dd2a29d8decaf22ef"
+		},
+		{
 			"ImportPath": "github.com/jtolds/gls",
 			"Rev": "9a4a02dbe491bef4bab3c24fd9f3087d6c4c6690"
 		},

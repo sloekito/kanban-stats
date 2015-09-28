@@ -28,3 +28,9 @@ func TestGetBoardFromTrello(t *testing.T){
 		})
 	})
 }
+
+func (column Column) TestCountCardsUsingFilter(t *testing.T){
+	Convey("Given a column with cards", t, func(){
+		Convey("When filtering by ")
+	})
+}

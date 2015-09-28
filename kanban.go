@@ -17,3 +17,6 @@ type Board struct {
 	Columns []trello.List
 	client trello.Client
 }
+
+type Column trello.List
+
