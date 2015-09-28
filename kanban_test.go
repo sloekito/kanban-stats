@@ -2,7 +2,6 @@ package main
 
 import(
 	"testing"
-	"reflect"
 	. "github.com/smartystreets/goconvey/convey"
 	
 	"kanban-stats/mocks"
@@ -13,7 +12,7 @@ func TestGetBoardFromTrello(t *testing.T){
 	Convey("Given a Trello board", t, func() {
 		client := new(mocks.Client)
 		boardId := "abc"
-		lists := make([]trello.List,5)
+		lists := []trello.List{{ID: "a"}, {ID: "b"}}
 		client.On("GetLists", boardId).Return(lists)
 		
 			
@@ -22,7 +21,9 @@ func TestGetBoardFromTrello(t *testing.T){
 			
 			Convey("The returned board is populated", func(){
 				So(board.GetID(), ShouldEqual, boardId)
-				So(reflect.DeepEqual(board.GetColumns(), TrelloListsToKanbanColumns(lists)), ShouldBeTrue)
+				So(board.GetColumns()[0].GetID(), ShouldEqual, lists[0].ID)
+				So(board.GetColumns()[1].GetID(), ShouldEqual, lists[1].ID)
+				
 			})
 		})
 	})

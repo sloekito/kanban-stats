@@ -8,7 +8,7 @@ import (
 )
 
 type List struct {
-	Id string
+	ID string
 	Name string
 	Cards []Card
 }
