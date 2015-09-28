@@ -38,11 +38,16 @@ func Test_TrelloBoard_CountCardsByType(t *testing.T){
 			{Labels: []trello.Label{defectLabel}},
 			{Labels: []trello.Label{otherLabel}},
 			{Labels: []trello.Label{}},
+			{Labels: []trello.Label{}},
 		}
 		list := List{Cards: cards}
 		
 		Convey("Counting cards by type defect returns the number of cards that have the defect label applied", func(){
 			So(list.CountCardsByType("defect"), ShouldEqual, 2)
+		})
+		
+		Convey("Counting cards by type feature returns the number of cards that do not have the defect label appllied", func(){
+			So(list.CountCardsByType("feature"), ShouldEqual, 3)
 		})
 	})
 }

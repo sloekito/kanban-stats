@@ -51,18 +51,18 @@ func (board trelloBoard) GetID() string {
 }
 
 func (list List) CountCardsByType(cardType string) (found int) {
-	var searchingFor string
-	switch cardType{ //TODO pull this data from configuration
-	case "defect": searchingFor = "54641fc074d650d56757a68e"
-	default: searchingFor = ""
-	}
-	
+	defectLabelID := "54641fc074d650d56757a68e"
+
 	for _, card := range list.Cards {
+		var foundDefect bool
 		for _, label := range card.Labels {
-			if label.ID == searchingFor {
-				found += 1
+			if label.ID == defectLabelID {
+				foundDefect = true
 				break
 			}
+		}
+		if cardType == "defect" && foundDefect || cardType != "defect" && !foundDefect {
+			found += 1
 		}
 	}
 	return
