@@ -5,13 +5,24 @@ import (
 	"net/http"
 	"log"
 	"encoding/json"
-	"io/ioutil"
 )
 
 type List struct {
 	Id string
 	Name string
-	Cards []interface{}
+	Cards []Card
+}
+
+type Card struct {
+	Labels []Label
+}
+
+type Label struct {
+	ID string
+	IDBoard string
+	Name string
+	Color string
+	Uses int
 }
 
 type Client interface {
@@ -28,7 +39,7 @@ func (c NetworkClient) GetLists(boardID string) (lists []List) {
 		"key": {c.Key}, 
 		"token": {c.Token},
 		"cards": {"open"},
-		"card_fields": {"idShort"},
+		"card_fields": {"labels"},
 	}
 	boardUrl := url.URL{
 		Scheme: "https",
@@ -52,30 +63,4 @@ func (c NetworkClient) GetLists(boardID string) (lists []List) {
 		log.Fatal(err)
 	}
 	return
-}
-
-func (c NetworkClient) PrintLabels(boardID string) {
-	query := url.Values{
-		"key": {c.Key}, 
-		"token": {c.Token},
-	}
-	boardUrl := url.URL{
-		Scheme: "https",
-		Host: "api.trello.com",
-		Path: "1/board/" + boardID + "/labels",
-		RawQuery: query.Encode(),
-	}
-	
-	log.Println("GET ", boardUrl.String())
-	response, err := http.Get(boardUrl.String())
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer response.Body.Close()
-	if response.StatusCode != 200 {
-		log.Fatal("Trello response: " + response.Status)
-	}
-	
-	contents, err := ioutil.ReadAll(response.Body)
-	log.Println(string(contents))
 }
