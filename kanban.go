@@ -79,6 +79,9 @@ func (board trelloBoard) GetMeasurementPoints() (points []influxdb.Point) {
 	return
 }
 
+
+// Tagsys Label: 54641fc074d650d56757a692
+// Defect Label: 54641fc074d650d56757a68e
 func (list List) CountCardsByType(cardType string) (found int) {
 	defectLabelID := "54641fc074d650d56757a68e"
 
