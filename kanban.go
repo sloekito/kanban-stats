@@ -83,17 +83,20 @@ func (board trelloBoard) GetMeasurementPoints() (points []influxdb.Point) {
 // Tagsys Label: 54641fc074d650d56757a692
 // Defect Label: 54641fc074d650d56757a68e
 func (list List) CountCardsByType(cardType string) (found int) {
-	defectLabelID := "54641fc074d650d56757a68e"
+	defectLabelID := "54641fc074d650d56757a68e" //TODO: Move these to configuration
+	nonDevLabelID := "54641fc074d650d56757a68d"
 
 	for _, card := range list.Cards {
-		var foundDefect bool
+		var foundDefect, foundNonDev bool
 		for _, label := range card.Labels {
-			if label.ID == defectLabelID {
-				foundDefect = true
+			switch label.ID {
+			case nonDevLabelID:
+				foundNonDev = true
 				break
+			case defectLabelID: foundDefect = true
 			}
 		}
-		if cardType == "defect" && foundDefect || cardType != "defect" && !foundDefect {
+		if !foundNonDev && (cardType == "defect" && foundDefect || cardType != "defect" && !foundDefect) {
 			found += 1
 		}
 	}
