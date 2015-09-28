@@ -50,8 +50,22 @@ func (board trelloBoard) GetID() string {
 	return board.id
 }
 
-func (list List) CountCardsByType(cardType string) int{
-	return 0
+func (list List) CountCardsByType(cardType string) (found int) {
+	var searchingFor string
+	switch cardType{ //TODO pull this data from configuration
+	case "defect": searchingFor = "54641fc074d650d56757a68e"
+	default: searchingFor = ""
+	}
+	
+	for _, card := range list.Cards {
+		for _, label := range card.Labels {
+			if label.ID == searchingFor {
+				found += 1
+				break
+			}
+		}
+	}
+	return
 }
 
 func (list List) GetID() string {

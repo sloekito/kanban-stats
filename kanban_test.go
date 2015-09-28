@@ -29,8 +29,20 @@ func TestGetBoardFromTrello(t *testing.T){
 	})
 }
 
-func TestCountCardsByType(t *testing.T){
-	Convey("Given a column with 3 cards labeled 'Defect' and 2 cards with no labels", t, func(){
+func Test_TrelloBoard_CountCardsByType(t *testing.T){
+	Convey("Given a list with cards with a mix of labels", t, func(){
+		defectLabel := trello.Label{ ID: "54641fc074d650d56757a68e" }
+		otherLabel := trello.Label{ ID: "1234567890" }
+		cards := []trello.Card{
+			{Labels: []trello.Label{defectLabel, otherLabel}},
+			{Labels: []trello.Label{defectLabel}},
+			{Labels: []trello.Label{otherLabel}},
+			{Labels: []trello.Label{}},
+		}
+		list := List{Cards: cards}
 		
+		Convey("Counting cards by type defect returns the number of cards that have the defect label applied", func(){
+			So(list.CountCardsByType("defect"), ShouldEqual, 2)
+		})
 	})
 }
