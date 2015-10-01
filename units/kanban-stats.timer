@@ -5,9 +5,8 @@ MachineOf=kanban-stats.service
 Description=Runs kanban-stats collector service
 
 [Timer]
-OnCalendar=daily
+OnUnitActiveSec=2h
 Unit=kanban-stats.service
-Persistent=true
 
 [Install]
 WantedBy=multi-user.target

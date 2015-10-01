@@ -9,21 +9,21 @@ Environment="IMAGE=kanban-stats"
 ExecStart=/usr/bin/docker run \
 	--name kanban-stats \
 	--rm=true \
-	docker.cloud.nlab.io/${IMAGE}:${RELEASE}  -trellokey a1f4e474236496b38a7ad8fda0d1a47e -trellotoken e59bb28c9ce2fcc9c2be5eef1eba6f6b2953c4616c8268b551d518c855fc6191 -boardid 534efa63a3a33edc034ac3d1 -influxhost influxdb:8086 -influxuser root -influxdb Trello -influxpass root
+	docker.cloud.nlab.io/${IMAGE}:${RELEASE}  -trellokey a1f4e474236496b38a7ad8fda0d1a47e -trellotoken e59bb28c9ce2fcc9c2be5eef1eba6f6b2953c4616c8268b551d518c855fc6191 -boardid 534efa63a3a33edc034ac3d1 -influxhost influxdb09 -influxuser root -influxdb trello -influxpass root
 	
-ExecStartPost=/bin/bash -c "/usr/bin/docker run \
-	--name kanban-stats_backup \
-	--rm=true \
-	--entrypoint=bin/influxdb-backup.sh \
-	docker.cloud.nlab.io/kanban-stats:${RELEASE} dump Trello -h influxdb:8086 > /tmp/trello_backup"
-	
-ExecStartPost=/usr/bin/docker run \
-	--name kanban-stats_awscli \
-	--rm=true \
-	--net=host \
-	--volume="/tmp:/mnt/trello:ro" \
-	--entrypoint=/usr/local/bin/aws \
-	docker.cloud.nlab.io/kanban-stats:${RELEASE} s3 cp /mnt/trello/trello_backup s3://daily-trello
+#ExecStartPost=/bin/bash -c "/usr/bin/docker run \
+#	--name kanban-stats_backup \
+#	--rm=true \
+#	--entrypoint=/bin/sh \
+#	docker.cloud.nlab.io/kanban-stats:${RELEASE} -c 'rm -f /tmp/trello_backup; /opt/influxdb/influxd backup -host influxdb09-internal:8088 /tmp/trello_backup'"
+#	
+#ExecStartPost=/usr/bin/docker run \
+#	--name kanban-stats_awscli \
+#	--rm=true \
+#	--net=host \
+#	--volume="/tmp:/mnt/trello:ro" \
+#	--entrypoint=/usr/local/bin/aws \
+#	docker.cloud.nlab.io/kanban-stats:${RELEASE} s3 cp /mnt/trello/trello_backup s3://daily-trello
 	
 [Install]
 WantedBy=multi-user.target

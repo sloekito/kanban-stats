@@ -1,6 +1,6 @@
 name=kanban-stats
 account=docker.cloud.nlab.io
-release=0.0.9
+release=0.1
 target_os=linux
 target_arch=amd64
 influx_release = 0.9.4.1

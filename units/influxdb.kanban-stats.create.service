@@ -12,8 +12,8 @@ Environment="RELEASE=0.1"
 ExecStartPre=/usr/bin/printf "Pulling docker image ${REGISTRY}/${IMAGE}:${RELEASE}"
 ExecStartPre=/usr/bin/flock /home/core/pull.lock /usr/bin/timeout 5m /usr/bin/docker pull ${REGISTRY}/${IMAGE}:${RELEASE}
 ExecStart=/usr/bin/printf "Creating InfluxDB database for Trello stats"
-ExecStart=/usr/bin/docker run --rm=true --entrypoint="/bin/sh" -e PATH=/opt/influxdb:$PATH \
-  ${REGISTRY}/${IMAGE}:${RELEASE} /bin/createdb.sh
+ExecStart=/usr/bin/docker run --rm=true --entrypoint="/opt/influxdb/influx" \
+  ${REGISTRY}/${IMAGE}:${RELEASE} -host influxdb09 -execute='CREATE DATABASE "trello"'
 
 [X-Fleet]
 MachineMetadata="role=control"
