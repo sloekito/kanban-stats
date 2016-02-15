@@ -1,7 +1,5 @@
 {
-	"dashboard": {
-	
-  "id": null,
+  "id": 1,
   "title": "Team Stats",
   "originalTitle": "Team Stats",
   "tags": [],
@@ -14,127 +12,12 @@
     {
       "collapse": false,
       "editable": true,
-      "height": "250px",
+      "height": "700px",
       "panels": [
         {
           "aliasColors": {},
           "bars": true,
-          "datasource": "Trello",
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 80,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "thresholdLine": false
-          },
-          "id": 1,
-          "interval": "1d",
-          "legend": {
-            "alignAsTable": true,
-            "avg": false,
-            "current": false,
-            "hideEmpty": false,
-            "max": false,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": false,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "null as zero",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "span": 12,
-          "stack": true,
-          "steppedLine": false,
-          "targets": [
-            {
-              "alias": "Waste",
-              "column": "53d0c20893ffc1d7c3848d89_count_open_cards",
-              "fill": "null",
-              "function": "mean",
-              "groupby_field": "",
-              "hide": true,
-              "interval": "",
-              "query": "select mean(53d0c20893ffc1d7c3848d89_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) fill(null) order asc",
-              "series": "534efa63a3a33edc034ac3d1"
-            },
-            {
-              "alias": "Done",
-              "column": "534efa63a3a33edc034ac3d4_count_open_cards",
-              "fill": "null",
-              "function": "mean",
-              "groupby_field": "",
-              "interval": "",
-              "query": "select mean(534efa63a3a33edc034ac3d4_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) fill(null) order asc",
-              "series": "534efa63a3a33edc034ac3d1"
-            },
-            {
-              "alias": "Validate",
-              "column": "55ef50c10c7798b2a6281e3a_count_open_cards",
-              "fill": "null",
-              "function": "mean",
-              "groupby_field": "",
-              "hide": false,
-              "interval": "",
-              "query": "select mean(55ef50c10c7798b2a6281e3a_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) fill(null) order asc",
-              "series": "534efa63a3a33edc034ac3d1"
-            },
-            {
-              "alias": "In Progress",
-              "column": "534efa63a3a33edc034ac3d3_count_open_cards",
-              "fill": "null",
-              "function": "mean",
-              "groupby_field": "",
-              "interval": "",
-              "query": "select mean(534efa63a3a33edc034ac3d3_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) fill(null) order asc",
-              "series": "534efa63a3a33edc034ac3d1"
-            },
-            {
-              "alias": "On Deck",
-              "column": "5571e02c7371da4596eefdf1_count_open_cards",
-              "fill": "null",
-              "function": "mean",
-              "groupby_field": "",
-              "interval": "",
-              "query": "select mean(5571e02c7371da4596eefdf1_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) fill(null) order asc",
-              "series": "534efa63a3a33edc034ac3d1"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "RFID Team Cumulative Flow Diagram",
-          "tooltip": {
-            "shared": true,
-            "value_type": "cumulative"
-          },
-          "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": true,
-          "datasource": "Trello",
+          "datasource": "Kanban",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -150,16 +33,14 @@
             "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "id": 2,
+          "id": 1,
           "interval": "1d",
+          "isNew": true,
           "legend": {
-            "alignAsTable": true,
             "avg": false,
             "current": false,
-            "hideEmpty": false,
             "max": false,
             "min": false,
-            "rightSide": true,
             "show": true,
             "total": false,
             "values": false
@@ -167,7 +48,7 @@
           "lines": false,
           "linewidth": 2,
           "links": [],
-          "nullPointMode": "null as zero",
+          "nullPointMode": "connected",
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -178,59 +59,367 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "Defects Done",
-              "column": "55fb7801687ea8c97b3c8e82_count_open_cards",
-              "fill": "null",
-              "function": "mean",
-              "interval": "",
-              "query": "select mean(55fb7801687ea8c97b3c8e82_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) fill(null) order asc",
-              "series": "534efa63a3a33edc034ac3d1",
-              "target": ""
+              "alias": "Waste",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": true,
+              "measurement": "count_cards",
+              "query": "SELECT mean(\"value\") FROM \"count_cards\" WHERE \"list\" = '534efa63a3a33edc034ac3d4' AND \"type\" = 'defect' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "H",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "list",
+                  "operator": "=",
+                  "value": "534efa63a3a33edc034ac3d4"
+                },
+                {
+                  "condition": "AND",
+                  "key": "type",
+                  "operator": "=",
+                  "value": "defect"
+                }
+              ]
             },
             {
               "alias": "Done",
-              "column": "559c06b0fe1686068b6fad16_count_open_cards",
-              "fill": "null",
-              "function": "mean",
-              "groupby_field": "",
-              "interval": "",
-              "query": "select mean(559c06b0fe1686068b6fad16_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) fill(null) order asc",
-              "series": "534efa63a3a33edc034ac3d1"
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "count_cards",
+              "query": "SELECT mean(\"value\") FROM \"count_cards\" WHERE \"list\" = '534efa63a3a33edc034ac3d4' AND \"type\" = 'feature' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "list",
+                  "operator": "=",
+                  "value": "534efa63a3a33edc034ac3d4"
+                },
+                {
+                  "condition": "AND",
+                  "key": "type",
+                  "operator": "=",
+                  "value": "feature"
+                }
+              ]
             },
             {
-              "alias": "Validate & Deploy",
-              "column": "55915d3111adda33b1fb48ff_count_open_cards",
-              "fill": "null",
-              "function": "mean",
-              "groupby_field": "",
-              "interval": "",
-              "query": "select mean(55915d3111adda33b1fb48ff_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) fill(null) order asc",
-              "series": "534efa63a3a33edc034ac3d1"
+              "alias": "Validate",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "count_cards",
+              "query": "SELECT mean(\"value\") FROM \"count_cards\" WHERE \"list\" = '55ef50c10c7798b2a6281e3a' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "list",
+                  "operator": "=",
+                  "value": "55ef50c10c7798b2a6281e3a"
+                }
+              ]
             },
             {
-              "alias": "Doing",
-              "column": "55427b8cca6679bf721155c2_count_open_cards",
-              "fill": "null",
-              "function": "mean",
-              "groupby_field": "",
-              "interval": "",
-              "query": "select mean(55427b8cca6679bf721155c2_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) fill(null) order asc",
-              "series": "534efa63a3a33edc034ac3d1"
+              "alias": "Dev",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "count_cards",
+              "query": "SELECT mean(\"value\") FROM \"count_cards\" WHERE \"list\" = '534efa63a3a33edc034ac3d3' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "list",
+                  "operator": "=",
+                  "value": "534efa63a3a33edc034ac3d3"
+                }
+              ]
+            },
+            {
+              "alias": "Ready For Dev",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "count_cards",
+              "query": "SELECT mean(\"value\") FROM \"count_cards\" WHERE \"list\" = '5571e02c7371da4596eefdf1' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "D",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "list",
+                  "operator": "=",
+                  "value": "5571e02c7371da4596eefdf1"
+                }
+              ]
+            },
+            {
+              "alias": "Gathering Supplies",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "count_cards",
+              "query": "SELECT mean(\"value\") FROM \"count_cards\" WHERE \"list\" = '568d67f0e2cb59191533101e' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "E",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "list",
+                  "operator": "=",
+                  "value": "568d67f0e2cb59191533101e"
+                }
+              ]
             },
             {
               "alias": "Backlog",
-              "column": "54ff2239bafebc6bf25cfbd5_count_open_cards",
-              "fill": "null",
-              "function": "mean",
-              "groupby_field": "",
-              "interval": "",
-              "query": "select mean(54ff2239bafebc6bf25cfbd5_count_open_cards) from \"534efa63a3a33edc034ac3d1\" where $timeFilter group by time($interval) fill(null) order asc",
-              "series": "534efa63a3a33edc034ac3d1"
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "count_cards",
+              "query": "SELECT mean(\"value\") FROM \"count_cards\" WHERE \"list\" = '54eed5987cc8e966e5d52322' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "F",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "list",
+                  "operator": "=",
+                  "value": "54eed5987cc8e966e5d52322"
+                }
+              ]
+            },
+            {
+              "alias": "Inbox",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "count_cards",
+              "query": "SELECT mean(\"value\") FROM \"count_cards\" WHERE \"list\" = '559ac0ef99d436f128b8b713' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "G",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "list",
+                  "operator": "=",
+                  "value": "559ac0ef99d436f128b8b713"
+                }
+              ]
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Tagsys Cumulative Flow Diagram",
+          "title": "Cumulative Flow",
           "tooltip": {
             "shared": true,
             "value_type": "cumulative"
@@ -244,50 +433,38 @@
           ]
         }
       ],
-      "showTitle": false,
-      "title": "Nordstrom"
-    }
-  ],
-  "nav": [
-    {
-      "collapse": false,
-      "enable": true,
-      "notice": false,
-      "now": true,
-      "nowDelay": "",
-      "refresh_intervals": [
-        "5s",
-        "10s",
-        "30s",
-        "1m",
-        "5m",
-        "15m",
-        "30m",
-        "1h",
-        "2h",
-        "1d"
-      ],
-      "status": "Stable",
-      "time_options": [
-        "5m",
-        "15m",
-        "1h",
-        "6h",
-        "12h",
-        "24h",
-        "2d",
-        "7d",
-        "30d",
-        "60d",
-        "90d",
-        "150d"
-      ],
-      "type": "timepicker"
+      "title": "Row"
     }
   ],
   "time": {
-    "from": "now-150d",
+    "from": "now-60d",
     "to": "now"
+  },
+  "timepicker": {
+    "now": true,
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
   },
   "templating": {
     "list": []
@@ -296,9 +473,7 @@
     "list": []
   },
   "refresh": "2h",
-  "schemaVersion": 6,
-  "version": 6,
+  "schemaVersion": 8,
+  "version": 7,
   "links": []
-}
-}
 }
