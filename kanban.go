@@ -2,18 +2,19 @@ package main
 
 import (
 	"kanban-stats/trello"
-	influxdb "github.com/influxdb/influxdb/client"
+
+	influxdb "github.com/influxdata/influxdb/client"
 )
 
-func GetBoardFromTrello(client trello.Client, boardID string) (board Board){
+func GetBoardFromTrello(client trello.Client, boardID string) (board Board) {
 	trelloLists := client.GetLists(boardID)
 	lists := make([]List, len(trelloLists))
 	for i, list := range trelloLists {
 		lists[i] = List(list)
 	}
-	return trelloBoard {
-		id: boardID,
-		lists: lists,
+	return trelloBoard{
+		id:     boardID,
+		lists:  lists,
 		client: client,
 	}
 }
@@ -31,10 +32,9 @@ type Column interface {
 	GetCards() []trello.Card
 }
 
-
 type trelloBoard struct {
-	id string
-	lists []List
+	id     string
+	lists  []List
 	client trello.Client
 }
 
@@ -54,31 +54,30 @@ func (board trelloBoard) GetID() string {
 
 func (board trelloBoard) GetMeasurementPoints() (points []influxdb.Point) {
 	points = make([]influxdb.Point, len(board.GetColumns())*2)
-//	teams := []string{"rfid_nordstrom"}
+	//	teams := []string{"rfid_nordstrom"}
 	cardTypes := []string{"feature", "defect"}
-	i := 0 
+	i := 0
 	for _, column := range board.GetColumns() {
-//		for _, team := range teams{
-			for _, cardType := range cardTypes{
-				points[i] = influxdb.Point{
-					Measurement: "count_cards",
-					Tags: map[string]string {
-						"board": board.GetID(),
-						"list": column.GetID(),
-						//"team": team,
-						"type": cardType,
-					},
-					Fields: map[string]interface{}{
-						"value": column.CountCardsByType(cardType),
-					},
-				}
-				i += 1
+		//		for _, team := range teams{
+		for _, cardType := range cardTypes {
+			points[i] = influxdb.Point{
+				Measurement: "count_cards",
+				Tags: map[string]string{
+					"board": board.GetID(),
+					"list":  column.GetID(),
+					//"team": team,
+					"type": cardType,
+				},
+				Fields: map[string]interface{}{
+					"value": column.CountCardsByType(cardType),
+				},
 			}
-//		}		
+			i += 1
+		}
+		//		}
 	}
 	return
 }
-
 
 // Tagsys Label: 54641fc074d650d56757a692
 // Defect Label: 54641fc074d650d56757a68e
@@ -93,7 +92,8 @@ func (list List) CountCardsByType(cardType string) (found int) {
 			case nonDevLabelID:
 				foundNonDev = true
 				break
-			case defectLabelID: foundDefect = true
+			case defectLabelID:
+				foundDefect = true
 			}
 		}
 		if !foundNonDev && (cardType == "defect" && foundDefect || cardType != "defect" && !foundDefect) {

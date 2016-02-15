@@ -1,25 +1,26 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
-	"flag"
 	"net/url"
-	
+
 	"kanban-stats/trello"
-	influxdb "github.com/influxdb/influxdb/client"
+
+	influxdb "github.com/influxdata/influxdb/client"
 )
 
 type flags struct {
-	trelloKey, trelloToken, trelloBoardID, influxHost, influxDB, influxUser, influxPassword string
-	verbose, dryRun bool
+	trelloKey, trelloToken, trelloBoardID, influxURL, influxDB, influxUser, influxPassword string
+	verbose, dryRun                                                                        bool
 }
 
 func getCommandLineFlags() (flags flags) {
 	flag.StringVar(&flags.trelloKey, "trellokey", "", "Trello application key")
 	flag.StringVar(&flags.trelloToken, "trellotoken", "", "Trello access token")
 	flag.StringVar(&flags.trelloBoardID, "boardid", "", "Trello board ID")
-	flag.StringVar(&flags.influxHost, "influxhost", "", "Influx host:post")
+	flag.StringVar(&flags.influxURL, "influxaddr", "http://localhost:8086", "http://host:port")
 	flag.StringVar(&flags.influxDB, "influxdb", "", "Influx datbase name")
 	flag.StringVar(&flags.influxUser, "influxuser", "", "Influx username")
 	flag.StringVar(&flags.influxPassword, "influxpass", "", "Influx password")
@@ -32,37 +33,38 @@ func getCommandLineFlags() (flags flags) {
 func main() {
 	log.Print(ApplicationName, ": start")
 	defer log.Print(ApplicationName, ": end")
-	
+
 	flags := getCommandLineFlags()
 
 	trello := trello.NetworkClient{
 		Key:   flags.trelloKey,
 		Token: flags.trelloToken,
 	}
-	
+
 	board := GetBoardFromTrello(trello, flags.trelloBoardID)
 
-	if flags.verbose { printInfo(board) }	
+	if flags.verbose {
+		printInfo(board)
+	}
 	if !flags.dryRun {
-		influxURL, err := url.Parse(fmt.Sprintf("http://%s:%d", flags.influxHost, 8086))
+		influxURL, err := url.Parse(flags.influxURL)
 		if err != nil {
 			log.Fatal(ApplicationName, ": url.Parse: ", err)
 		}
-		
+
 		influxdb, err := influxdb.NewClient(influxdb.Config{
-			URL: *influxURL,
+			URL:      *influxURL,
 			Username: flags.influxUser,
 			Password: flags.influxPassword,
 		})
 		if err != nil {
 			log.Fatal(ApplicationName, ": influxdb.NewClient: ", err)
 		}
-	
-		
+
 		err = writePointsToDatabase(influxdb, board.GetMeasurementPoints())
 		if err != nil {
 			log.Fatal(ApplicationName, ": writeStatsToDatabase: ", err)
-		}			
+		}
 		//writeListsToDatabase(influxdbClient, board.Columns, flags.trelloBoardID)
 	}
 }
@@ -78,7 +80,7 @@ func printInfo(board Board) {
 			}
 		}
 	}
-	
+
 	fmt.Printf("\nLabels In Use\n")
 	for name, id := range labelsFound {
 		fmt.Printf("%s: %s\n", name, id)
