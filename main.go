@@ -4,11 +4,10 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"net/url"
 
 	"kanban-stats/trello"
 
-	influxdb "github.com/influxdata/influxdb/client"
+	influxdb "github.com/influxdata/influxdb/client/v2"
 )
 
 type flags struct {
@@ -47,13 +46,8 @@ func main() {
 		printInfo(board)
 	}
 	if !flags.dryRun {
-		influxURL, err := url.Parse(flags.influxURL)
-		if err != nil {
-			log.Fatal(ApplicationName, ": url.Parse: ", err)
-		}
-
-		influxdb, err := influxdb.NewClient(influxdb.Config{
-			URL:      *influxURL,
+		influxdb, err := influxdb.NewHTTPClient(influxdb.HTTPConfig{
+			Addr:     flags.influxURL,
 			Username: flags.influxUser,
 			Password: flags.influxPassword,
 		})
@@ -61,7 +55,7 @@ func main() {
 			log.Fatal(ApplicationName, ": influxdb.NewClient: ", err)
 		}
 
-		err = writePointsToDatabase(influxdb, board.GetMeasurementPoints())
+		err = writePointsToDatabase(influxdb, GetMeasurementPoints(board))
 		if err != nil {
 			log.Fatal(ApplicationName, ": writeStatsToDatabase: ", err)
 		}

@@ -1,10 +1,6 @@
 package main
 
-import (
-	"kanban-stats/trello"
-
-	influxdb "github.com/influxdata/influxdb/client"
-)
+import "kanban-stats/trello"
 
 func GetBoardFromTrello(client trello.Client, boardID string) (board Board) {
 	trelloLists := client.GetLists(boardID)
@@ -22,7 +18,6 @@ func GetBoardFromTrello(client trello.Client, boardID string) (board Board) {
 type Board interface {
 	GetID() string
 	GetColumns() []Column
-	GetMeasurementPoints() []influxdb.Point
 }
 
 type Column interface {
@@ -50,33 +45,6 @@ func (board trelloBoard) GetColumns() []Column {
 
 func (board trelloBoard) GetID() string {
 	return board.id
-}
-
-func (board trelloBoard) GetMeasurementPoints() (points []influxdb.Point) {
-	points = make([]influxdb.Point, len(board.GetColumns())*2)
-	//	teams := []string{"rfid_nordstrom"}
-	cardTypes := []string{"feature", "defect"}
-	i := 0
-	for _, column := range board.GetColumns() {
-		//		for _, team := range teams{
-		for _, cardType := range cardTypes {
-			points[i] = influxdb.Point{
-				Measurement: "count_cards",
-				Tags: map[string]string{
-					"board": board.GetID(),
-					"list":  column.GetID(),
-					//"team": team,
-					"type": cardType,
-				},
-				Fields: map[string]interface{}{
-					"value": column.CountCardsByType(cardType),
-				},
-			}
-			i += 1
-		}
-		//		}
-	}
-	return
 }
 
 // Tagsys Label: 54641fc074d650d56757a692
