@@ -19,7 +19,7 @@ func getCommandLineFlags() (flags flags) {
 	flag.StringVar(&flags.trelloKey, "trellokey", "", "Trello application key")
 	flag.StringVar(&flags.trelloToken, "trellotoken", "", "Trello access token")
 	flag.StringVar(&flags.trelloBoardID, "boardid", "", "Trello board ID")
-	flag.StringVar(&flags.influxURL, "influxaddr", "http://localhost:8086", "http://host:port")
+	flag.StringVar(&flags.influxURL, "influxurl", "http://localhost:8086", "http://host:port")
 	flag.StringVar(&flags.influxDB, "influxdb", "", "Influx datbase name")
 	flag.StringVar(&flags.influxUser, "influxuser", "", "Influx username")
 	flag.StringVar(&flags.influxPassword, "influxpass", "", "Influx password")
