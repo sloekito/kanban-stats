@@ -6,7 +6,7 @@ import (
 	influxdb "github.com/influxdata/influxdb/client/v2"
 )
 
-func GetMeasurementPoints(board Board) (points influxdb.BatchPoints) {
+func BuildPointBatch(board Board) (points influxdb.BatchPoints) {
 	points, _ = influxdb.NewBatchPoints(influxdb.BatchPointsConfig{
 		Database:        "kanban",
 		RetentionPolicy: "default",

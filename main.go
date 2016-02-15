@@ -55,7 +55,7 @@ func main() {
 			log.Fatal(ApplicationName, ": influxdb.NewClient: ", err)
 		}
 
-		err = writePointsToDatabase(influxdb, GetMeasurementPoints(board))
+		err = writePointsToDatabase(influxdb, BuildPointBatch(board))
 		if err != nil {
 			log.Fatal(ApplicationName, ": writeStatsToDatabase: ", err)
 		}
