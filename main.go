@@ -20,7 +20,7 @@ func getCommandLineFlags() (flags flags) {
 	flag.StringVar(&flags.trelloToken, "trellotoken", "", "Trello access token")
 	flag.StringVar(&flags.trelloBoardID, "boardid", "", "Trello board ID")
 	flag.StringVar(&flags.influxURL, "influxurl", "http://localhost:8086", "http://host:port")
-	flag.StringVar(&flags.influxDB, "influxdb", "", "Influx datbase name")
+	flag.StringVar(&flags.influxDB, "influxdb", "kanban", "Influx datbase name")
 	flag.StringVar(&flags.influxUser, "influxuser", "", "Influx username")
 	flag.StringVar(&flags.influxPassword, "influxpass", "", "Influx password")
 	flag.BoolVar(&flags.verbose, "v", false, "Print verbose information")
@@ -55,7 +55,7 @@ func main() {
 			log.Fatal(ApplicationName, ": influxdb.NewClient: ", err)
 		}
 
-		err = writePointsToDatabase(influxdb, BuildPointBatch(board))
+		err = writePointsToDatabase(influxdb, BuildPointBatch(flags.influxDB, board))
 		if err != nil {
 			log.Fatal(ApplicationName, ": writeStatsToDatabase: ", err)
 		}

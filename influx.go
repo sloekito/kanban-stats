@@ -6,9 +6,9 @@ import (
 	influxdb "github.com/influxdata/influxdb/client/v2"
 )
 
-func BuildPointBatch(board Board) (points influxdb.BatchPoints) {
+func BuildPointBatch(database string, board Board) (points influxdb.BatchPoints) {
 	points, _ = influxdb.NewBatchPoints(influxdb.BatchPointsConfig{
-		Database:        "kanban",
+		Database:        database,
 		RetentionPolicy: "default",
 	})
 
