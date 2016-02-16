@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: <%= name %>
+  labels:
+    app: <%= app_name %>
+    stack: <%= stack %>
+spec:
+  rules:
+  - host: <%= hostname %>
+    http:
+      paths:
+      - path: "/"
+        backend:
+          serviceName: <%= name %>
+          servicePort: <%= service_port %>
