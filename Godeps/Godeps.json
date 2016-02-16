@@ -1,21 +1,21 @@
 {
 	"ImportPath": "kanban-stats",
-	"GoVersion": "go1.5.1",
+	"GoVersion": "go1.5.3",
 	"Deps": [
 		{
-			"ImportPath": "github.com/influxdb/influxdb/client",
-			"Comment": "v0.9.4-rc1-183-gb079d20",
-			"Rev": "b079d201a026d2757b51579dd2a29d8decaf22ef"
+			"ImportPath": "github.com/influxdata/influxdb/client/v2",
+			"Comment": "v0.10.0-207-g8e10099",
+			"Rev": "8e100998fab81a70f8b8fa8fbb41e1ed8cafa6f5"
 		},
 		{
-			"ImportPath": "github.com/influxdb/influxdb/models",
-			"Comment": "v0.9.4-rc1-183-gb079d20",
-			"Rev": "b079d201a026d2757b51579dd2a29d8decaf22ef"
+			"ImportPath": "github.com/influxdata/influxdb/models",
+			"Comment": "v0.10.0-207-g8e10099",
+			"Rev": "8e100998fab81a70f8b8fa8fbb41e1ed8cafa6f5"
 		},
 		{
-			"ImportPath": "github.com/influxdb/influxdb/pkg/escape",
-			"Comment": "v0.9.4-rc1-183-gb079d20",
-			"Rev": "b079d201a026d2757b51579dd2a29d8decaf22ef"
+			"ImportPath": "github.com/influxdata/influxdb/pkg/escape",
+			"Comment": "v0.10.0-207-g8e10099",
+			"Rev": "8e100998fab81a70f8b8fa8fbb41e1ed8cafa6f5"
 		},
 		{
 			"ImportPath": "github.com/jtolds/gls",
