@@ -12,7 +12,7 @@ import (
 
 type flags struct {
 	trelloKey, trelloToken, trelloBoardID, influxURL, influxDB, influxUser, influxPassword string
-	verbose, dryRun                                                                        bool
+	verbose, dryRun, version                                                               bool
 }
 
 func getCommandLineFlags() (flags flags) {
@@ -25,15 +25,21 @@ func getCommandLineFlags() (flags flags) {
 	flag.StringVar(&flags.influxPassword, "influxpass", "root", "Influx password")
 	flag.BoolVar(&flags.verbose, "v", false, "Print verbose information")
 	flag.BoolVar(&flags.dryRun, "d", false, "Dry run does not output to database")
+	flag.BoolVar(&flags.version, "version", false, "Print version and exit")
 	flag.Parse()
 	return
 }
 
 func main() {
+	flags := getCommandLineFlags()
+
+	if flags.version {
+		fmt.Println(GetVersion())
+		return
+	}
+
 	log.Print(ApplicationName, ": start")
 	defer log.Print(ApplicationName, ": end")
-
-	flags := getCommandLineFlags()
 
 	trello := trello.NetworkClient{
 		Key:   flags.trelloKey,
